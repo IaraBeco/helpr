@@ -46,6 +46,15 @@ public class ClienteService {
 		oldObj =  new Cliente(objDTO);
 		return repository.save(oldObj);
 	}
+	
+	public void delete(Integer id) {
+		Cliente clienteObj=findById(id);
+		if(clienteObj.getChamados().size() >0){
+			throw new DataIntegrityViolationException("O Cliente: "+
+					id+" tem chamados no sistema, chamados: "+ clienteObj.getChamados().size());
+		}
+		repository.deleteById(id);
+	}
 
 	private void validaCpfEEmail(ClienteDTO objDto) {
 
