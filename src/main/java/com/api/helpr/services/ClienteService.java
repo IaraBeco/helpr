@@ -38,6 +38,14 @@ public class ClienteService {
 		Cliente newObj = new Cliente(objDto);
 		return repository.save(newObj);
 	}
+	
+	public Cliente update(Integer id, ClienteDTO objDTO) {
+		objDTO.setId(id);;
+		Cliente oldObj = findById(id);
+		validaCpfEEmail(objDTO);
+		oldObj =  new Cliente(objDTO);
+		return repository.save(oldObj);
+	}
 
 	private void validaCpfEEmail(ClienteDTO objDto) {
 
